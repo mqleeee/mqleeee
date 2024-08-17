@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project_musium/pages/Home_page.dart';
+import 'package:project_musium/pages/MainScreen.dart';
 
 class LogIn extends StatefulWidget {
   const LogIn({super.key});
@@ -161,7 +161,7 @@ class _LogInState extends State<LogIn> {
                           onPressed: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context)=> HomePage())
+                              MaterialPageRoute(builder: (context)=> MainScreen())
                             );
                           },
                           child: Text(

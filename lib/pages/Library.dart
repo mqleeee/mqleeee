@@ -21,15 +21,23 @@ class _LibraryState extends State<Library> {
     Center(child: Text('Podcasts & Shows Page', style: TextStyle(color: Colors.white))),
   ];
 
-  @override
+  void _onTextButtonPressed(int index) {
+    setState(() {
+      // Kiểm tra nếu nút được chọn đã được chọn trước đó
+      if (selectedIndex == index) {
+        // Nếu đã chọn, thì quay lại trạng thái chưa chọn
+        selectedIndex = -1;
+      } else {
+        // Ngược lại, cập nhật chỉ số được chọn
+        selectedIndex = index;
+      }
+    });
+  }
+
   Widget buildTextButton(int index, String label) {
     bool isSelected = selectedIndex == index;
     return TextButton(
-      onPressed: () {
-        setState(() {
-          selectedIndex = index;
-        });
-      },
+      onPressed: () => _onTextButtonPressed(index),
       child: Text(
         label,
         style: TextStyle(
@@ -44,6 +52,7 @@ class _LibraryState extends State<Library> {
           backgroundColor: isSelected ? Color(0xFF39C0D4) : Color(0xFF121111)),
     );
   }
+
 
   @override
   Widget build(BuildContext context) {
