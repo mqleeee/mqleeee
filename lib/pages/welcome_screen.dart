@@ -120,33 +120,7 @@ class WelcomeScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              // Positioned(
-              //   top: 75,
-              //   left: 30,
-              //   child: Stack(
-              //     children: <Widget>[
-              //       Container(
-              //         width: 120,
-              //         height: 120,
-              //         decoration: BoxDecoration(
-              //           shape: BoxShape.circle,
-              //           boxShadow: [
-              //             BoxShadow(
-              //               color: insideCircle.withOpacity(0.5),
-              //               spreadRadius: -50,
-              //               blurRadius: 19,
-              //               offset: Offset(4,-8),
-              //             )
-              //           ],
-              //         ),
-              //       ),
-              //       CircleAvatar(
-              //         radius: 60,
-              //         backgroundColor: mycolor,
-              //       )
-              //     ],
-              //   ),
-              // ),
+
               Positioned(
                 top: 75,
                 left: 30,

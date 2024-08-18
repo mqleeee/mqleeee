@@ -25,18 +25,33 @@ class HomePage extends StatelessWidget {
                 buildTitle('Continue Listening'),
                 SizedBox(height: 20),
                 buildRow(Color(0xFF436369), [
-                  {'imagePath': 'assets/images/food1.png', 'text': 'Coffee & jazz'},
+                  {
+                    'imagePath': 'assets/images/food1.png',
+                    'text': 'Coffee & jazz'
+                  },
                   {'imagePath': 'assets/images/hinh2.png', 'text': 'RELEASED '},
                 ]),
                 SizedBox(height: 10),
                 buildRow(Color(0xFF436369), [
-                  {'imagePath': 'assets/images/hinh6.png', 'text': 'Anything Goes'},
-                  {'imagePath': 'assets/images/hinh3.png', 'text': 'Anime OSTs'},
+                  {
+                    'imagePath': 'assets/images/hinh6.png',
+                    'text': 'Anything Goes'
+                  },
+                  {
+                    'imagePath': 'assets/images/hinh3.png',
+                    'text': 'Anime OSTs'
+                  },
                 ]),
                 SizedBox(height: 10),
                 buildRow(Color(0xFF436369), [
-                  {'imagePath': 'assets/images/hinh5.png', 'text': "Harry's House"},
-                  {'imagePath': 'assets/images/hinh4.png', 'text': 'Lo-Fi Beats'},
+                  {
+                    'imagePath': 'assets/images/hinh5.png',
+                    'text': "Harry's House"
+                  },
+                  {
+                    'imagePath': 'assets/images/hinh4.png',
+                    'text': 'Lo-Fi Beats'
+                  },
                 ]),
                 SizedBox(height: 20),
                 buildTitle('Your Top Mixes'),
@@ -57,9 +72,20 @@ class HomePage extends StatelessWidget {
   Widget buildHeader(BuildContext context) {
     return Row(
       children: <Widget>[
-        CircleAvatar(
-          backgroundImage: AssetImage('assets/images/girl1.png'),
-          radius: 20.0,
+        Container(
+          padding: EdgeInsets.all(3), // Độ rộng của viền
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            gradient: LinearGradient(
+              colors: [Color(0xFF158085), Color(0xFF00DBFC)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+          child: CircleAvatar(
+            backgroundImage: AssetImage('assets/images/avatar.jpg'),
+            radius: 20.0,
+          ),
         ),
         SizedBox(width: 10),
         Column(
@@ -86,7 +112,8 @@ class HomePage extends StatelessWidget {
           },
         ),
         IconButton(
-          icon: Icon(Icons.notifications_outlined, size: 30, color: Colors.white),
+          icon:
+              Icon(Icons.notifications_outlined, size: 30, color: Colors.white),
           onPressed: () {},
         ),
         IconButton(
@@ -114,7 +141,8 @@ class HomePage extends StatelessWidget {
       child: Row(
         children: <Widget>[
           buildMixes(Color(0xFFFF7777), 'assets/images/mixes1.png', 'Pop Mix'),
-          buildMixes(Color(0xFFFFFA77), 'assets/images/mixes2.png', 'Chill Mix'),
+          buildMixes(
+              Color(0xFFFFFA77), 'assets/images/mixes2.png', 'Chill Mix'),
           buildMixes(Color(0xFF77FF95), 'assets/images/mixes3.png', 'Kpop'),
         ],
       ),

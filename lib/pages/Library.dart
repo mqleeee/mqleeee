@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_musium/pages/Folders.dart'; // Thay thế bằng các import cần thiết
-
+import 'package:project_musium/pages/Playlists.dart';
 class Library extends StatefulWidget {
   const Library({super.key});
 
@@ -15,7 +15,7 @@ class _LibraryState extends State<Library> {
   final List<Widget> pages = [
     // Placeholder cho các trang khác
     Folders(),
-    Center(child: Text('Playlists Page', style: TextStyle(color: Colors.white))),
+    Playlists(),
     Center(child: Text('Artists Page', style: TextStyle(color: Colors.white))),
     Center(child: Text('Albums Page', style: TextStyle(color: Colors.white))),
     Center(child: Text('Podcasts & Shows Page', style: TextStyle(color: Colors.white))),
@@ -145,7 +145,7 @@ class _LibraryState extends State<Library> {
                             radius: 25, // Đường kính của CircleAvatar
                             child: IconButton(
                               onPressed: () {},
-                              icon: Icon(Icons.heart_broken, color: Colors.black),
+                              icon: Icon(Icons.favorite_border, color: Colors.black),
                               iconSize: 20,
                             ),
                           ),

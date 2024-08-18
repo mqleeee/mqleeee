@@ -88,8 +88,7 @@ class _LogInState extends State<LogIn> {
                                 controller: _passwordController,
                                 obscureText: _isObscured,
                                 decoration: InputDecoration(
-                                  prefixIcon: Icon(Icons.lock_clock_outlined,
-                                      color: Colors.white30),
+                                  prefixIcon: Icon(Icons.lock_clock_outlined, color: Colors.white30),
                                   labelText: 'Password',
                                   labelStyle: TextStyle(color: Colors.white),
                                   filled: true,

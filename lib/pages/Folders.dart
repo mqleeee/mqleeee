@@ -65,7 +65,7 @@ class Folders extends StatelessWidget {
                       radius: 25,
                       child: IconButton(
                         onPressed: () {},
-                        icon: Icon(Icons.heart_broken, color: Colors.black),
+                        icon: Icon(Icons.favorite_border, color: Colors.black),
                         iconSize: 20,
                       ),
                     ),
@@ -85,12 +85,9 @@ class Folders extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
                     Icon(
-                      Icons.arrow_downward_outlined,
+                      Icons.import_export,
                       color: Colors.blueGrey,
-                    ),
-                    Icon(
-                      Icons.arrow_upward_outlined,
-                      color: Colors.blueGrey,
+                      size: 20, // Phóng to Icon
                     ),
                     SizedBox(width: 5),
                     Text(
