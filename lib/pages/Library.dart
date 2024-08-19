@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_musium/pages/Artists.dart';
 import 'package:project_musium/pages/Folders.dart'; // Thay thế bằng các import cần thiết
 import 'package:project_musium/pages/Playlists.dart';
 class Library extends StatefulWidget {
@@ -16,7 +17,7 @@ class _LibraryState extends State<Library> {
     // Placeholder cho các trang khác
     Folders(),
     Playlists(),
-    Center(child: Text('Artists Page', style: TextStyle(color: Colors.white))),
+    Artists(),
     Center(child: Text('Albums Page', style: TextStyle(color: Colors.white))),
     Center(child: Text('Podcasts & Shows Page', style: TextStyle(color: Colors.white))),
   ];

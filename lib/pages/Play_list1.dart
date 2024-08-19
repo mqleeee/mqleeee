@@ -1,17 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:project_musium/pages/MainScreen.dart';
 
 
-class PlaylistScreen extends StatelessWidget {
+class PlaylistScreen extends StatefulWidget {
+  const PlaylistScreen({super.key});
+
+  @override
+  _PlaylistScreenState createState() => _PlaylistScreenState();
+}
+
+class _PlaylistScreenState extends State<PlaylistScreen> {
+  int _selectedIndex = 0;
+
+  void _onBottomNavItemTapped(int index) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => MainScreen(initialIndex: index),
+      ),
+    );
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      extendBody: true,
+      backgroundColor: Color(0xFF121111),
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: Color(0xFF121111),
         elevation: 0,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
+            Navigator.pop(context); // Return to previous screen
           },
           color: Colors.white,
         ),
@@ -19,7 +43,7 @@ class PlaylistScreen extends StatelessWidget {
           'FROM "PLAYLISTS"',
           style: TextStyle(
             fontSize: 14,
-            color: Colors.white54,
+            color: Color(0xFFFFFFFF),
           ),
         ),
         centerTitle: true,
@@ -27,7 +51,7 @@ class PlaylistScreen extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.more_vert),
             onPressed: () {
-              // Add functionality here if needed
+              // More actions
             },
             color: Colors.white,
           ),
@@ -41,12 +65,11 @@ class PlaylistScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
-                  height: 160,
-                  width: 160,
+                  height: 180,
+                  width: 180,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage(
-                          'assets/images/song_image.png'), // Replace with your image asset
+                      image: AssetImage('assets/images/folderc1.png'), // Your image asset
                       fit: BoxFit.cover,
                     ),
                     borderRadius: BorderRadius.circular(8),
@@ -76,66 +99,69 @@ class PlaylistScreen extends StatelessWidget {
                   child: ListView(
                     children: [
                       playlistItem(context, 'grainy days', 'moody.',
-                          'assets/images/song1_image.png'),
+                          'assets/images/playlistsc1.png'),
                       playlistItem(context, 'Coffee', 'Kainbeats',
-                          'assets/images/song2_image.png'),
+                          'assets/images/playlistsc2.png'),
                       playlistItem(context, 'raindrops', 'rainyxxx',
-                          'assets/images/song3_image.png'),
+                          'assets/images/playlistsc3.png'),
                       playlistItem(context, 'Tokyo', 'SmYang',
-                          'assets/images/song4_image.png'),
+                          'assets/images/playlistsc4.png'),
                       playlistItem(context, 'Lullaby', 'iamfinenow',
-                          'assets/images/song5_image.png'),
+                          'assets/images/playlistsc5.png'),
                       playlistItem(context, 'Hazel Eyes', 'moody.',
-                          'assets/images/song6_image.png'),
+                          'assets/images/playlistsc6.png'),
                     ],
                   ),
                 ),
               ],
             ),
           ),
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: Container(
-              color: Colors.black.withOpacity(0.0), // Transparent background
-              padding: EdgeInsets.symmetric(vertical: 8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(Icons.home, color: Colors.white),
-                      Text('Home', style: TextStyle(color: Colors.white)),
-                    ],
-                  ),
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      IconButton(
-                        icon: Icon(Icons.search, color: Colors.white),
-                        onPressed: () {}
-                      ),
-                      Text('Explore', style: TextStyle(color: Colors.white)),
-                    ],
-                  ),
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(Icons.folder, color: Colors.cyan),
-                      Text('Library', style: TextStyle(color: Colors.cyan)),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
         ],
+      ),
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.7), // Màu đen với độ mờ
+            spreadRadius: 10, // Phạm vi lan tỏa của bóng
+            blurRadius: 10,  // Độ mờ của bóng
+            offset: Offset(0, -3), // Vị trí đổ bóng (di chuyển lên trên)
+          ),
+          ],
+          gradient: LinearGradient(
+            begin: Alignment.bottomCenter,
+            end: Alignment.topCenter,
+            colors: [
+              Colors.black.withOpacity(0.9), // Đen đậm phía dưới
+              Colors.black.withOpacity(0.0), // Trong suốt phía trên
+            ],
+          ),
+        ),
+        child: BottomNavigationBar(
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.playlist_play),
+              label: 'Explore',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.folder_outlined),
+              label: 'Library',
+            ),
+          ],
+          currentIndex: _selectedIndex,
+          selectedItemColor: Color(0xFF06A0B5),
+          unselectedItemColor: Colors.grey,
+          onTap: _onBottomNavItemTapped,
+          backgroundColor: Colors.transparent, // Làm trong suốt BottomNavigationBar
+          elevation: 0,
+        ),
       ),
     );
   }
-
   Widget playlistItem(
       BuildContext context, String title, String artist, String imagePath) {
     return Padding(

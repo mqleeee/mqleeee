@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:project_musium/pages/MainScreen.dart'; // Import MainScreen
+import 'package:project_musium/pages/MainScreen.dart';
+import 'package:project_musium/pages/Play_list1.dart'; // Import MainScreen
 
 class Folder extends StatefulWidget {
   const Folder({super.key});
@@ -26,6 +27,7 @@ class _FolderState extends State<Folder> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBody: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -84,15 +86,15 @@ class _FolderState extends State<Folder> {
                     children: [
                       addNewPlaylist(),
                       folderItem('current favorites', '20 songs',
-                          'assets/images/based2.png'),
+                          'assets/images/based2.png',context),
                       folderItem('3:00am vibes', '18 songs',
-                          'assets/images/library2.png'),
+                          'assets/images/library2.png',context),
                       folderItem('Lofi Loft', '63 songs',
-                          'assets/images/folderc1.png'),
+                          'assets/images/folderc1.png',context),
                       folderItem('rain on my window', '32 songs',
-                          'assets/images/folderc4.png'),
+                          'assets/images/folderc4.png',context),
                       folderItem('Anime OSTs', '20 songs',
-                          'assets/images/hinh3.png'),
+                          'assets/images/hinh3.png',context),
                     ],
                   ),
                 ),
@@ -102,27 +104,47 @@ class _FolderState extends State<Folder> {
 
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.7), // Màu đen với độ mờ
+              spreadRadius: 10, // Phạm vi lan tỏa của bóng
+              blurRadius: 10,  // Độ mờ của bóng
+              offset: Offset(0, -3), // Vị trí đổ bóng (di chuyển lên trên)
+            ),
+          ],
+          gradient: LinearGradient(
+            begin: Alignment.bottomCenter,
+            end: Alignment.topCenter,
+            colors: [
+              Colors.black.withOpacity(0.9), // Đen đậm phía dưới
+              Colors.black.withOpacity(0.0), // Trong suốt phía trên
+            ],
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.playlist_play),
-            label: 'Explore',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.folder_outlined),
-            label: 'Library',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Color(0xFF06A0B5),
-        unselectedItemColor: Colors.grey,
-        onTap: _onBottomNavItemTapped,
-        backgroundColor: Colors.transparent,
-        elevation: 0,
+        ),
+        child: BottomNavigationBar(
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.playlist_play),
+              label: 'Explore',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.folder_outlined),
+              label: 'Library',
+            ),
+          ],
+          currentIndex: _selectedIndex,
+          selectedItemColor: Color(0xFF06A0B5),
+          unselectedItemColor: Colors.grey,
+          onTap: _onBottomNavItemTapped,
+          backgroundColor: Colors.transparent, // Làm trong suốt BottomNavigationBar
+          elevation: 0,
+        ),
       ),
       backgroundColor: Color(0xFF121111),
     );
@@ -160,51 +182,61 @@ Widget addNewPlaylist() {
   );
 }
 
-Widget folderItem(String title, String subtitle, String imagePath) {
-  return Padding(
-    padding: const EdgeInsets.symmetric(
-        vertical: 12.0), // Adjusted vertical padding
-    child: Row(
-      children: [
-        Container(
-          height: 80, // Increased size
-          width: 80, // Increased size
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage(imagePath),
-              fit: BoxFit.cover,
+Widget folderItem(String title, String subtitle, String imagePath,BuildContext context) {
+  return GestureDetector(
+    onTap: () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => PlaylistScreen(),
+        ),
+      );
+    },
+    child: Padding(
+      padding: const EdgeInsets.symmetric(
+        vertical: 12.0,
+      ),
+      child: Row(
+        children: [
+          Container(
+            height: 80,
+            width: 80,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(imagePath),
+                fit: BoxFit.cover,
+              ),
+              borderRadius: BorderRadius.circular(12),
             ),
-            borderRadius:
-            BorderRadius.circular(12), // Increased border radius
           ),
-        ),
-        SizedBox(width: 20), // Increased width
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              title,
-              style: TextStyle(
-                fontSize: 20, // Increased font size
-                color: Colors.white,
+          SizedBox(width: 20),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.white,
+                ),
               ),
-            ),
-            SizedBox(height: 6), // Increased space
-            Text(
-              subtitle,
-              style: TextStyle(
-                fontSize: 16, // Increased font size
-                color: Colors.white54,
+              SizedBox(height: 6),
+              Text(
+                subtitle,
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.white54,
+                ),
               ),
-            ),
-          ],
-        ),
-        Spacer(),
-        Icon(
-          Icons.more_vert,
-          color: Colors.white54,
-        ),
-      ],
+            ],
+          ),
+          Spacer(),
+          Icon(
+            Icons.more_vert,
+            color: Colors.white54,
+          ),
+        ],
+      ),
     ),
   );
 }
