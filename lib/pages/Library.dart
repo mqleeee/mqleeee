@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:project_musium/pages/Artists.dart';
 import 'package:project_musium/pages/Folders.dart'; // Thay thế bằng các import cần thiết
 import 'package:project_musium/pages/Playlists.dart';
+import 'package:project_musium/pages/Albums.dart';
+import 'package:project_musium/pages/Podcast_shows.dart';
 class Library extends StatefulWidget {
   const Library({super.key});
 
@@ -18,8 +20,8 @@ class _LibraryState extends State<Library> {
     Folders(),
     Playlists(),
     Artists(),
-    Center(child: Text('Albums Page', style: TextStyle(color: Colors.white))),
-    Center(child: Text('Podcasts & Shows Page', style: TextStyle(color: Colors.white))),
+    Albums(),
+    Podcasts_Shows()
   ];
 
   void _onTextButtonPressed(int index) {
@@ -37,20 +39,40 @@ class _LibraryState extends State<Library> {
 
   Widget buildTextButton(int index, String label) {
     bool isSelected = selectedIndex == index;
-    return TextButton(
-      onPressed: () => _onTextButtonPressed(index),
-      child: Text(
-        label,
-        style: TextStyle(
+    return Container(
+      height: 40,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        gradient: isSelected
+            ? LinearGradient(
+          colors: [
+            Color(0xFF15686B),
+            Color(0xFF06A0B5),
+          ],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        )
+            : null, // Không có gradient khi không được chọn
+        color: isSelected ? null : Color(0xFF121111), // Màu nền khi không được chọn
+        border: Border.all(color: Colors.white, width: 1),
+      ),
+      child: TextButton(
+        onPressed: () => _onTextButtonPressed(index),
+        style: TextButton.styleFrom(
+          padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          backgroundColor: Colors.transparent, // Đặt màu nền thành trong suốt để hiển thị gradient từ Container
+        ),
+        child: Text(
+          label,
+          style: TextStyle(
             fontWeight: FontWeight.w400,
             fontSize: 13,
             color: Colors.white,
-            letterSpacing: 0.6),
+            letterSpacing: 0.6,
+          ),
+        ),
       ),
-      style: TextButton.styleFrom(
-          side: BorderSide(color: Colors.white, width: 1),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-          backgroundColor: isSelected ? Color(0xFF39C0D4) : Color(0xFF121111)),
     );
   }
 

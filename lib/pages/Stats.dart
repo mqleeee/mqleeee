@@ -48,7 +48,7 @@ class _StatsState extends State<Stats> {
         actions: <Widget>[
           IconButton(
             onPressed: () {},
-            icon: Icon(Icons.auto_awesome_mosaic_outlined, color: Colors.white),
+            icon: Icon(Icons.grid_view, color: Colors.white),
           ),
           IconButton(
             onPressed: () {},
@@ -115,13 +115,31 @@ class _StatsState extends State<Stats> {
               color: isSelected ? Color(0xFF39C0D4) : Colors.white,
               fontWeight: FontWeight.w700,
               fontSize: 16,
+              shadows: [
+                Shadow(
+                  color: Color(0xFF39C0D4), // Màu bóng
+                  offset: Offset(0,0), // Độ dịch chuyển của bóng
+                  blurRadius: 9, // Độ mờ của bóng
+                ),
+              ],
             ),
           ),
         ),
         Container(
           height: 2,
           width: 100,
-          color: isSelected ? Color(0xFF39C0D4) : Colors.transparent,
+          decoration: BoxDecoration(
+            color: isSelected ? Color(0xFF39C0D4) : Colors.transparent,
+            boxShadow: isSelected
+                ? [
+              BoxShadow(
+                color: Color(0xFF39C0D4), // Màu bóng
+                offset: Offset(0, 0), // Độ dịch chuyển của bóng
+                blurRadius: 9, // Độ mờ của bóng
+              ),
+            ]
+                : [],
+          ),
         ),
       ],
     );
