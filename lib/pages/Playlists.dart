@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
-
+import 'package:project_musium/pages/Folders.dart'; // Thay thế bằng đường dẫn chính xác
+import 'package:project_musium/pages/Artists.dart';
+import 'package:project_musium/pages/Albums.dart';
+import 'package:project_musium/pages/Podcast_shows.dart';
+import 'package:project_musium/widgets/custom_text_button.dart';
+import 'package:project_musium/pages/MainScreen.dart';
 class Playlists extends StatefulWidget {
   const Playlists({super.key});
 
@@ -8,6 +13,51 @@ class Playlists extends StatefulWidget {
 }
 
 class _PlaylistsState extends State<Playlists> {
+  int selectedIndex = 1; // Index mặc định của nút được chọn
+
+  // Danh sách các mục để hiển thị
+  final List<Map<String, String>> items = [
+    {
+      'imagePath': 'assets/images/playlists1.png',
+      'title': 'Superache',
+      'subtitle': 'Conan Gray',
+    },
+    {
+      'imagePath': 'assets/images/playlists2.png',
+      'title': 'DAWN FM',
+      'subtitle': 'The Weekend',
+    },
+    {
+      'imagePath': 'assets/images/playlists3.png',
+      'title': 'Planet Her',
+      'subtitle': 'Doja Cat',
+    },
+    {
+      'imagePath': 'assets/images/library3.png',
+      'title': 'Wiped Out!',
+      'subtitle': 'The Neighbourhood',
+    },
+    {
+      'imagePath': 'assets/images/playlists5.png',
+      'title': 'Bloom',
+      'subtitle': 'Troye Sivan',
+    },
+  ];
+
+  final List<Widget> pages = [
+    Folders(),
+    Playlists(),
+    Artists(),
+    Albums(),
+    Podcasts_Shows(),
+  ];
+
+  void _onTextButtonPressed(int index) {
+    setState(() {
+      selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,18 +71,87 @@ class _PlaylistsState extends State<Playlists> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  // IconButton đã bị loại bỏ khỏi đây
+                  Image(
+                    image: AssetImage('assets/images/logo1.png'),
+                    width: 60,
+                    height: 60,
+                  ),
+                  SizedBox(width: 10),
+                  Text(
+                    'Your Library',
+                    style: TextStyle(
+                      color: Color(0xFF06A0B5),
+                      fontSize: 27,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  Spacer(),
+                  IconButton(
+                    icon: Icon(Icons.search, size: 30, color: Colors.white),
+                    onPressed: () {
+                      // Xử lý tìm kiếm
+                    },
+                  ),
                 ],
               ),
+              SizedBox(height: 10,),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    CustomTextButton(
+                      label: 'Folders',
+                      isSelected: selectedIndex == 0,
+                      onPressed: () => _onTextButtonPressed(0),
+                      destinationPage: Folders(),
+                      libraryPage: MainScreen(initialIndex: 2),
+                    ),
+                    SizedBox(width: 20),
+                    CustomTextButton(
+                      label: 'Playlists',
+                      isSelected: selectedIndex == 1,
+                      onPressed: () => _onTextButtonPressed(1),
+                      destinationPage: Playlists(),
+                      libraryPage: MainScreen(initialIndex: 2),
+                    ),
+                    SizedBox(width: 20),
+                    CustomTextButton(
+                      label: 'Artists',
+                      isSelected: selectedIndex == 2,
+                      onPressed: () => _onTextButtonPressed(2),
+                      destinationPage: Artists(),
+                      libraryPage: MainScreen(initialIndex: 2),
+                    ),
+                    SizedBox(width: 20),
+                    CustomTextButton(
+                      label: 'Albums',
+                      isSelected: selectedIndex == 3,
+                      onPressed: () => _onTextButtonPressed(3),
+                      destinationPage: Albums(),
+                      libraryPage: MainScreen(initialIndex: 2),
+                    ),
+                    SizedBox(width: 20),
+                    CustomTextButton(
+                      label: 'Podcasts & Shows',
+                      isSelected: selectedIndex == 4,
+                      onPressed: () => _onTextButtonPressed(4),
+                      destinationPage: Podcasts_Shows(),
+                      libraryPage: MainScreen(initialIndex: 2),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 30),
               Row(
                 children: [
                   CircleAvatar(
                     backgroundColor: Color(0xFF39C0D4),
-                    radius: 30, // Phóng to CircleAvatar
+                    radius: 25, // Phóng to CircleAvatar
                     child: IconButton(
                       onPressed: () {},
                       icon: Icon(Icons.favorite_border, color: Colors.black),
-                      iconSize: 25, // Phóng to Icon
+                      iconSize: 20, // Phóng to Icon
                     ),
                   ),
                   SizedBox(width: 20), // Tăng khoảng cách giữa các cột
@@ -40,7 +159,7 @@ class _PlaylistsState extends State<Playlists> {
                     'Your Liked Playlists',
                     style: TextStyle(
                         color: Colors.white,
-                        fontSize: 22, // Phóng to Text
+                        fontSize: 18, // Phóng to Text
                         fontWeight: FontWeight.bold),
                   ),
                 ],

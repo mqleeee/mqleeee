@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:project_musium/pages/Folder.dart';
 import 'package:project_musium/pages/MainScreen.dart';
+import 'package:project_musium/pages/Song.dart';
 
 
 class PlaylistScreen extends StatefulWidget {
@@ -35,7 +37,7 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.pop(context); // Return to previous screen
+            Navigator.push(context, MaterialPageRoute(builder: (context)=> Folder())); // Return to previous screen
           },
           color: Colors.white,
         ),
@@ -124,7 +126,7 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
           BoxShadow(
             color: Colors.black.withOpacity(0.7), // Màu đen với độ mờ
             spreadRadius: 10, // Phạm vi lan tỏa của bóng
-            blurRadius: 10,  // Độ mờ của bóng
+            blurRadius: 20,  // Độ mờ của bóng
             offset: Offset(0, -3), // Vị trí đổ bóng (di chuyển lên trên)
           ),
           ],
@@ -132,7 +134,7 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
             begin: Alignment.bottomCenter,
             end: Alignment.topCenter,
             colors: [
-              Colors.black.withOpacity(0.9), // Đen đậm phía dưới
+              Colors.black.withOpacity(1), // Đen đậm phía dưới
               Colors.black.withOpacity(0.0), // Trong suốt phía trên
             ],
           ),
@@ -203,7 +205,9 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
           Spacer(),
           IconButton(
             icon: Icon(Icons.more_vert, color: Colors.white),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context)=> SongScreen()));
+            },
           )
         ],
       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_musium/pages/Folders.dart';
 import 'package:project_musium/pages/MainScreen.dart';
 import 'package:project_musium/pages/Play_list1.dart'; // Import MainScreen
 
@@ -34,7 +35,7 @@ class _FolderState extends State<Folder> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.pop(context); // Go back to the previous screen
+            Navigator.push(context,MaterialPageRoute(builder: (context)=> Folders())); // Go back to the previous screen
           },
           color: Colors.white,
         ),
@@ -101,7 +102,6 @@ class _FolderState extends State<Folder> {
               ],
             ),
           ),
-
         ],
       ),
       bottomNavigationBar: Container(
@@ -110,7 +110,7 @@ class _FolderState extends State<Folder> {
             BoxShadow(
               color: Colors.black.withOpacity(0.7), // Màu đen với độ mờ
               spreadRadius: 10, // Phạm vi lan tỏa của bóng
-              blurRadius: 10,  // Độ mờ của bóng
+              blurRadius: 20,  // Độ mờ của bóng
               offset: Offset(0, -3), // Vị trí đổ bóng (di chuyển lên trên)
             ),
           ],
@@ -118,7 +118,7 @@ class _FolderState extends State<Folder> {
             begin: Alignment.bottomCenter,
             end: Alignment.topCenter,
             colors: [
-              Colors.black.withOpacity(0.9), // Đen đậm phía dưới
+              Colors.black.withOpacity(1), // Đen đậm phía dưới
               Colors.black.withOpacity(0.0), // Trong suốt phía trên
             ],
           ),

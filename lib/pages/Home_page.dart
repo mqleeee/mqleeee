@@ -4,64 +4,67 @@ import 'package:project_musium/pages/Stats.dart'; // Đường dẫn chính xác
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Color(0xFF06A0B5), Color(0xFF102B2D), Color(0xFF0E0E0E)],
-          stops: [0.0, 0.0, 0.4],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
+    return  Scaffold(
+      extendBody: true,
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0xFF06A0B5), Color(0xFF102B2D), Color(0xFF0E0E0E)],
+            stops: [0.0, 0.0, 0.4],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
         ),
-      ),
-      child: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                buildHeader(context),
-                SizedBox(height: 20),
-                buildTitle('Continue Listening'),
-                SizedBox(height: 20),
-                buildRow(Color(0xFF436369), [
-                  {
-                    'imagePath': 'assets/images/food1.png',
-                    'text': 'Coffee & jazz'
-                  },
-                  {'imagePath': 'assets/images/hinh2.png', 'text': 'RELEASED '},
-                ]),
-                SizedBox(height: 10),
-                buildRow(Color(0xFF436369), [
-                  {
-                    'imagePath': 'assets/images/hinh6.png',
-                    'text': 'Anything Goes'
-                  },
-                  {
-                    'imagePath': 'assets/images/hinh3.png',
-                    'text': 'Anime OSTs'
-                  },
-                ]),
-                SizedBox(height: 10),
-                buildRow(Color(0xFF436369), [
-                  {
-                    'imagePath': 'assets/images/hinh5.png',
-                    'text': "Harry's House"
-                  },
-                  {
-                    'imagePath': 'assets/images/hinh4.png',
-                    'text': 'Lo-Fi Beats'
-                  },
-                ]),
-                SizedBox(height: 20),
-                buildTitle('Your Top Mixes'),
-                SizedBox(height: 10),
-                buildTopMixes(),
-                SizedBox(height: 15),
-                buildTitle('Based on your recent listening'),
-                SizedBox(height: 10),
-                buildRecentListening(),
-              ],
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  buildHeader(context),
+                  SizedBox(height: 20),
+                  buildTitle('Continue Listening'),
+                  SizedBox(height: 20),
+                  buildRow(Color(0xFF436369), [
+                    {
+                      'imagePath': 'assets/images/food1.png',
+                      'text': 'Coffee & jazz'
+                    },
+                    {'imagePath': 'assets/images/hinh2.png', 'text': 'RELEASED '},
+                  ]),
+                  SizedBox(height: 10),
+                  buildRow(Color(0xFF436369), [
+                    {
+                      'imagePath': 'assets/images/hinh6.png',
+                      'text': 'Anything Goes'
+                    },
+                    {
+                      'imagePath': 'assets/images/hinh3.png',
+                      'text': 'Anime OSTs'
+                    },
+                  ]),
+                  SizedBox(height: 10),
+                  buildRow(Color(0xFF436369), [
+                    {
+                      'imagePath': 'assets/images/hinh5.png',
+                      'text': "Harry's House"
+                    },
+                    {
+                      'imagePath': 'assets/images/hinh4.png',
+                      'text': 'Lo-Fi Beats'
+                    },
+                  ]),
+                  SizedBox(height: 20),
+                  buildTitle('Your Top Mixes'),
+                  SizedBox(height: 10),
+                  buildTopMixes(),
+                  SizedBox(height: 15),
+                  buildTitle('Based on your recent listening'),
+                  SizedBox(height: 10),
+                  buildRecentListening(),
+                ],
+              ),
             ),
           ),
         ),

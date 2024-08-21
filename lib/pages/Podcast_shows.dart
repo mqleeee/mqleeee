@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:project_musium/pages/Folders.dart'; // Thay thế bằng đường dẫn chính xác
+import 'package:project_musium/pages/Playlists.dart';
+import 'package:project_musium/pages/Artists.dart';
+import 'package:project_musium/pages/Albums.dart';
+import 'package:project_musium/widgets/custom_text_button.dart';
+import 'package:project_musium/pages/MainScreen.dart';
 
 class Podcasts_Shows extends StatefulWidget {
   const Podcasts_Shows({super.key});
@@ -8,6 +14,14 @@ class Podcasts_Shows extends StatefulWidget {
 }
 
 class _Podcasts_ShowsState extends State<Podcasts_Shows> {
+  int selectedIndex = 4; // Index mặc định của nút được chọn
+
+  void _onTextButtonPressed(int index) {
+    setState(() {
+      selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,18 +35,88 @@ class _Podcasts_ShowsState extends State<Podcasts_Shows> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  // IconButton đã bị loại bỏ khỏi đây
+                  Image(
+                    image: AssetImage('assets/images/logo1.png'),
+                    width: 60,
+                    height: 60,
+                  ),
+                  SizedBox(width: 10),
+                  Text(
+                    'Your Library',
+                    style: TextStyle(
+                      color: Color(0xFF06A0B5),
+                      fontSize: 27,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  Spacer(),
+                  IconButton(
+                    icon: Icon(Icons.search, size: 30, color: Colors.white),
+                    onPressed: () {
+                      // Xử lý tìm kiếm
+                    },
+                  ),
                 ],
               ),
+              SizedBox(height: 20),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    CustomTextButton(
+                      label: 'Folders',
+                      isSelected: selectedIndex == 0,
+                      onPressed: () => _onTextButtonPressed(0),
+                      destinationPage: Folders(),
+                      libraryPage: MainScreen(initialIndex: 2),
+                    ),
+                    SizedBox(width: 20),
+                    CustomTextButton(
+                      label: 'Playlists',
+                      isSelected: selectedIndex == 1,
+                      onPressed: () => _onTextButtonPressed(1),
+                      destinationPage: Playlists(),
+                      libraryPage: MainScreen(initialIndex: 2),
+                    ),
+                    SizedBox(width: 20),
+                    CustomTextButton(
+                      label: 'Artists',
+                      isSelected: selectedIndex == 2,
+                      onPressed: () => _onTextButtonPressed(2),
+                      destinationPage: Artists(),
+                      libraryPage: MainScreen(initialIndex: 2),
+
+                    ),
+                    SizedBox(width: 20),
+                    CustomTextButton(
+                      label: 'Albums',
+                      isSelected: selectedIndex == 3,
+                      onPressed: () => _onTextButtonPressed(3),
+                      destinationPage: Albums(),
+                      libraryPage: MainScreen(initialIndex: 2),
+                    ),
+                    SizedBox(width: 20),
+                    CustomTextButton(
+                      label: 'Podcasts & Shows',
+                      isSelected: selectedIndex == 4,
+                      onPressed: () => _onTextButtonPressed(4),
+                      destinationPage: Podcasts_Shows(),
+                      libraryPage: MainScreen(initialIndex: 2),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 20),
               Row(
                 children: [
                   CircleAvatar(
                     backgroundColor: Color(0xFF39C0D4),
-                    radius: 35, // Phóng to CircleAvatar
+                    radius: 25, // Phóng to CircleAvatar
                     child: IconButton(
                       onPressed: () {},
                       icon: Icon(Icons.favorite_border, color: Colors.black),
-                      iconSize: 30, // Phóng to Icon
+                      iconSize: 20, // Phóng to Icon
                     ),
                   ),
                   SizedBox(width: 20), // Tăng khoảng cách giữa các cột
@@ -40,12 +124,12 @@ class _Podcasts_ShowsState extends State<Podcasts_Shows> {
                     'Your Liked Podcasts',
                     style: TextStyle(
                         color: Colors.white,
-                        fontSize: 22, // Phóng to Text
+                        fontSize: 18, // Phóng to Text
                         fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
-              SizedBox(height: 30), // Tăng khoảng cách giữa các dòng
+              SizedBox(height: 20),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -53,7 +137,7 @@ class _Podcasts_ShowsState extends State<Podcasts_Shows> {
                   Icon(
                     Icons.import_export,
                     color: Colors.blueGrey,
-                    size: 24, // Phóng to Icon
+                    size: 24,
                   ),
                   SizedBox(width: 10),
                   Text(
@@ -61,8 +145,8 @@ class _Podcasts_ShowsState extends State<Podcasts_Shows> {
                     style: TextStyle(
                         color: Color(0xFF39C0D4),
                         fontWeight: FontWeight.w700,
-                        fontSize: 16), // Phóng to Text
-                  )
+                        fontSize: 16),
+                  ),
                 ],
               ),
               Expanded(
@@ -99,7 +183,7 @@ class _Podcasts_ShowsState extends State<Podcasts_Shows> {
     return Row(
       children: <Widget>[
         Container(
-          width: 90, // Adjust image size if necessary
+          width: 90,
           height: 90,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12.0),
@@ -111,7 +195,6 @@ class _Podcasts_ShowsState extends State<Podcasts_Shows> {
         ),
         SizedBox(width: 20),
         Expanded(
-          // This will prevent overflow by allowing text to wrap
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
