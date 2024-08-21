@@ -16,7 +16,6 @@ class Library extends StatefulWidget {
 
 class _LibraryState extends State<Library> {
   int selectedIndex = -1;
-
   final List<Widget> pages = [
     Folders(),
     Playlists(),
@@ -199,8 +198,6 @@ class _LibraryState extends State<Library> {
                               ],
                             ),
                             SizedBox(height: 20),
-// Hiển thị các bài hát hoặc album
-// Đây là phần nội dung chính của trang Library
                             Row(
                               children: <Widget>[
                                 CircleAvatar(

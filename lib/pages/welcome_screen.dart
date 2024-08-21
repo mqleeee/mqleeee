@@ -1,14 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:project_musium/pages/Sign_in.dart';
+import 'package:project_musium/pages/sign_in.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    Color insideCircle = Color(0xFF121111);
     Color mycolor = Color(0xFF06A0B5);
     Color backgroundColorr = Color(0xFF39C0D4);
+
+    // Get screen size
+    final screenSize = MediaQuery.of(context).size;
+
+    // Dynamic dimensions based on screen size
+    final double containerHeight = screenSize.height * 0.35; // 35% of screen height
+    final double buttonWidth = screenSize.width * 0.7; // 70% of screen width
+    final double buttonheight = screenSize.width * 0.09;
+    final double iconSize = screenSize.width * 0.1; // 10% of screen width for icons
+    final double topPadding = screenSize.height * 0.01; // 2% chiều cao màn hình
+    final double horizontalPadding = screenSize.width * 0.17; // 15% chiều rộng màn hình
 
     return Scaffold(
       body: SafeArea(
@@ -21,12 +31,13 @@ class WelcomeScreen extends StatelessWidget {
                   color: backgroundColorr,
                   image: DecorationImage(
                     image: AssetImage('assets/images/girl1.png'),
+                    fit: BoxFit.contain,
                   ),
                 ),
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: Container(
-                    height: MediaQuery.of(context).size.height / 3,
+                    height: containerHeight,
                     width: double.infinity,
                     decoration: BoxDecoration(
                       color: Colors.black,
@@ -38,9 +49,11 @@ class WelcomeScreen extends StatelessWidget {
                     child: Column(
                       children: [
                         Container(
-                          margin: EdgeInsets.only(top: 16.0),
-                          height: 120,
-                          width: 250,
+                          padding: EdgeInsets.only(
+                            top: topPadding,
+                            left: horizontalPadding,
+                            right: horizontalPadding,
+                          ),
                           child: Text(
                             'From the latest to the greatest hits, play your favorite tracks on musium now!',
                             style: TextStyle(
@@ -54,8 +67,8 @@ class WelcomeScreen extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.remove, color: mycolor, size: 40.0),
-                            Icon(Icons.remove, color: Colors.white, size: 40.0),
+                            Icon(Icons.remove, color: mycolor, size: iconSize),
+                            Icon(Icons.remove, color: Colors.white, size: iconSize),
                           ],
                         ),
                         Padding(
@@ -67,16 +80,16 @@ class WelcomeScreen extends StatelessWidget {
                                   color: mycolor.withOpacity(0.3),
                                   spreadRadius: 5,
                                   blurRadius: 10,
-                                  offset: Offset(0,0)
+                                  offset: Offset(0, 0),
                                 ),
                               ],
                               borderRadius: BorderRadius.circular(25),
                             ),
-                            child:ElevatedButton(
+                            child: ElevatedButton(
                               onPressed: () {
                                 Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) => SignIn())
+                                  context,
+                                  MaterialPageRoute(builder: (context) => SignIn()),
                                 );
                               },
                               child: Text(
@@ -89,7 +102,8 @@ class WelcomeScreen extends StatelessWidget {
                               ),
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: mycolor,
-                                padding: EdgeInsets.symmetric(horizontal: 110),
+                                minimumSize: Size(buttonWidth, buttonheight),
+                                padding: EdgeInsets.symmetric(horizontal: 30),
                               ),
                             ),
                           ),
@@ -99,88 +113,7 @@ class WelcomeScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
-                top: 105,
-                right: 50,
-                child: Container(
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: insideCircle.withOpacity(0.1),
-                        spreadRadius: 8,
-                        blurRadius: 19,
-                        offset: Offset(4,-8),
-                      ),
-                    ],
-                  ),
-                  child: CircleAvatar(
-                    radius: 40,
-                    backgroundColor: mycolor
-                  ),
-                ),
-              ),
 
-              Positioned(
-                top: 75,
-                left: 30,
-                child: Stack(
-                  children: [
-                    // Vòng tròn lớn hơn với bóng mờ
-                    Container(
-                      width: 120,
-                      height: 120,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: mycolor,
-
-                      ),
-                    ),
-                    // Vòng tròn nhỏ hơn để tạo hiệu ứng trăng khuyết
-                    Positioned(
-                      left: 18, // Điều chỉnh vị trí để tạo hiệu ứng trăng khuyết
-                      top: 6,
-                      child: Container(
-                        width: 100,
-                        height: 100,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: mycolor,
-                          boxShadow: [
-                            BoxShadow(
-                              color: insideCircle.withOpacity(0.1),
-                              spreadRadius: -8,
-                              blurRadius: 10,
-                              offset: Offset(4, 4),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Positioned(
-                top: 250,
-                right: 30,
-                child: Container(
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: mycolor.withOpacity(1),
-                        spreadRadius: 0,
-                        blurRadius: 60,
-                        offset: Offset(0, 0),
-                      ),
-                    ],
-                  ),
-                  child: CircleAvatar(
-                    radius: 50,
-                    backgroundColor: Colors.black12,
-                  ),
-                ),
-              ),
             ],
           ),
         ),

@@ -4,7 +4,17 @@ import 'package:project_musium/pages/Stats.dart'; // Đường dẫn chính xác
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    // Get screen size
+    final screenSize = MediaQuery.of(context).size;
+
+    // Dynamic dimensions based on screen size
+    final double iconSize = screenSize.width * 0.08;
+    final double rowPadding = screenSize.width * 0.025;
+    final double titleFontSize = screenSize.width * 0.05;
+    final double textFontSize = screenSize.width * 0.026;
+    final double imageHeight = screenSize.height * 0.21;
+
+    return Scaffold(
       extendBody: true,
       body: Container(
         decoration: BoxDecoration(
@@ -17,52 +27,37 @@ class HomePage extends StatelessWidget {
         ),
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: EdgeInsets.all(16.0),
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  buildHeader(context),
+                  buildHeader(context, iconSize),
                   SizedBox(height: 20),
-                  buildTitle('Continue Listening'),
+                  buildTitle('Continue Listening', titleFontSize),
                   SizedBox(height: 20),
                   buildRow(Color(0xFF436369), [
-                    {
-                      'imagePath': 'assets/images/food1.png',
-                      'text': 'Coffee & jazz'
-                    },
+                    {'imagePath': 'assets/images/food1.png', 'text': 'Coffee & jazz'},
                     {'imagePath': 'assets/images/hinh2.png', 'text': 'RELEASED '},
-                  ]),
+                  ], imageHeight, rowPadding, textFontSize),
                   SizedBox(height: 10),
                   buildRow(Color(0xFF436369), [
-                    {
-                      'imagePath': 'assets/images/hinh6.png',
-                      'text': 'Anything Goes'
-                    },
-                    {
-                      'imagePath': 'assets/images/hinh3.png',
-                      'text': 'Anime OSTs'
-                    },
-                  ]),
+                    {'imagePath': 'assets/images/hinh6.png', 'text': 'Anything Goes'},
+                    {'imagePath': 'assets/images/hinh3.png', 'text': 'Anime OSTs'},
+                  ], imageHeight, rowPadding, textFontSize),
                   SizedBox(height: 10),
                   buildRow(Color(0xFF436369), [
-                    {
-                      'imagePath': 'assets/images/hinh5.png',
-                      'text': "Harry's House"
-                    },
-                    {
-                      'imagePath': 'assets/images/hinh4.png',
-                      'text': 'Lo-Fi Beats'
-                    },
-                  ]),
+                    {'imagePath': 'assets/images/hinh5.png', 'text': "Harry's House"},
+                    {'imagePath': 'assets/images/hinh4.png', 'text': 'Lo-Fi Beats'},
+                  ], imageHeight, rowPadding, textFontSize),
                   SizedBox(height: 20),
-                  buildTitle('Your Top Mixes'),
+                  buildTitle('Your Top Mixes', titleFontSize),
                   SizedBox(height: 10),
-                  buildTopMixes(),
+                  buildTopMixes(imageHeight, rowPadding, textFontSize),
                   SizedBox(height: 15),
-                  buildTitle('Based on your recent listening'),
+                  buildTitle('Based on your recent listening', titleFontSize),
                   SizedBox(height: 10),
-                  buildRecentListening(),
+                  buildRecentListening(imageHeight, rowPadding),
                 ],
               ),
             ),
@@ -72,11 +67,11 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget buildHeader(BuildContext context) {
+  Widget buildHeader(BuildContext context, double iconSize) {
     return Row(
       children: <Widget>[
         Container(
-          padding: EdgeInsets.all(3), // Độ rộng của viền
+          padding: EdgeInsets.all(3),
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             gradient: LinearGradient(
@@ -87,7 +82,7 @@ class HomePage extends StatelessWidget {
           ),
           child: CircleAvatar(
             backgroundImage: AssetImage('assets/images/avatar.jpg'),
-            radius: 20.0,
+            radius: iconSize / 2,
           ),
         ),
         SizedBox(width: 10),
@@ -97,95 +92,93 @@ class HomePage extends StatelessWidget {
             Text('Welcome back!',
                 style: TextStyle(
                     color: Colors.white,
-                    fontSize: 15,
+                    fontSize: iconSize * 0.5,
                     fontWeight: FontWeight.w700)),
             Text('chandrama',
                 style: TextStyle(
                     color: Colors.white70,
-                    fontSize: 12,
+                    fontSize: iconSize * 0.4,
                     fontWeight: FontWeight.w700)),
           ],
         ),
         Spacer(),
         IconButton(
-          icon: Icon(Icons.bar_chart_outlined, size: 30, color: Colors.white),
+          icon: Icon(Icons.bar_chart_outlined, size: iconSize, color: Colors.white),
           onPressed: () {
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => Stats()));
           },
         ),
         IconButton(
-          icon:
-              Icon(Icons.notifications_outlined, size: 30, color: Colors.white),
+          icon: Icon(Icons.notifications_outlined, size: iconSize, color: Colors.white),
           onPressed: () {},
         ),
         IconButton(
-          icon: Icon(Icons.settings_outlined, size: 30, color: Colors.white),
+          icon: Icon(Icons.settings_outlined, size: iconSize, color: Colors.white),
           onPressed: () {},
         ),
       ],
     );
   }
 
-  Widget buildTitle(String text) {
+  Widget buildTitle(String text, double fontSize) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: Text(
         text,
         style: TextStyle(
-            fontSize: 22, fontWeight: FontWeight.w700, color: Colors.white),
+            fontSize: fontSize, fontWeight: FontWeight.w700, color: Colors.white),
       ),
     );
   }
 
-  Widget buildTopMixes() {
+  Widget buildTopMixes(double imageHeight, double rowPadding, double textFontSize) {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
         children: <Widget>[
-          buildMixes(Color(0xFFFF7777), 'assets/images/mixes1.png', 'Pop Mix'),
-          buildMixes(
-              Color(0xFFFFFA77), 'assets/images/mixes2.png', 'Chill Mix'),
-          buildMixes(Color(0xFF77FF95), 'assets/images/mixes3.png', 'Kpop'),
+          buildMixes(Color(0xFFFF7777), 'assets/images/mixes1.png', 'Pop Mix', imageHeight, rowPadding, textFontSize),
+          buildMixes(Color(0xFFFFFA77), 'assets/images/mixes2.png', 'Chill Mix', imageHeight, rowPadding, textFontSize),
+          buildMixes(Color(0xFF77FF95), 'assets/images/mixes3.png', 'Kpop', imageHeight, rowPadding, textFontSize),
         ],
       ),
     );
   }
 
-  Widget buildRecentListening() {
+  Widget buildRecentListening(double imageHeight, double rowPadding) {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
         children: <Widget>[
-          buildBased('assets/images/based1.png'),
-          buildBased('assets/images/based2.png'),
+          buildBased('assets/images/based1.png', imageHeight, rowPadding),
+          buildBased('assets/images/based2.png', imageHeight, rowPadding),
         ],
       ),
     );
   }
 }
 
-Widget buildMixes(Color rectangleColor, String imagePath, String text) {
+Widget buildMixes(Color rectangleColor, String imagePath, String text, double imageHeight, double rowPadding, double textFontSize) {
   return Padding(
-    padding: EdgeInsets.symmetric(horizontal: 15),
+    padding: EdgeInsets.symmetric(horizontal: rowPadding),
     child: Stack(
       children: <Widget>[
         Container(
-          height: 180,
-          width: 180,
+          height: imageHeight,
+          width: imageHeight,
           decoration: BoxDecoration(
               image: DecorationImage(
                   image: AssetImage(imagePath), fit: BoxFit.cover)),
         ),
         Positioned(
-          top: 18,
-          left: 30,
+          top: imageHeight * 0.1,
+          left: imageHeight * 0.15,
           child: Text(
             text,
             style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.w700,
-                fontSize: 15,
+                fontSize: textFontSize,
                 letterSpacing: 0.04),
           ),
         ),
@@ -193,7 +186,7 @@ Widget buildMixes(Color rectangleColor, String imagePath, String text) {
           top: 5,
           left: -25,
           child: CircleAvatar(
-            minRadius: 20,
+            minRadius: imageHeight * 0.1,
             backgroundColor: Colors.white,
           ),
         ),
@@ -201,7 +194,7 @@ Widget buildMixes(Color rectangleColor, String imagePath, String text) {
           bottom: 30,
           right: -50,
           child: CircleAvatar(
-            minRadius: 45,
+            minRadius: imageHeight * 0.25,
             backgroundColor: Colors.white,
           ),
         ),
@@ -219,12 +212,12 @@ Widget buildMixes(Color rectangleColor, String imagePath, String text) {
   );
 }
 
-Widget buildBased(String imagePath) {
+Widget buildBased(String imagePath, double imageHeight, double rowPadding) {
   return Padding(
-    padding: EdgeInsets.symmetric(horizontal: 15),
+    padding: EdgeInsets.symmetric(horizontal: rowPadding),
     child: Container(
-      height: 200,
-      width: 200,
+      height: imageHeight * 1.1, // 10% lớn hơn chiều cao hình ảnh
+      width: imageHeight * 1.1, // 10% lớn hơn chiều rộng hình ảnh
       decoration: BoxDecoration(
         image: DecorationImage(image: AssetImage(imagePath), fit: BoxFit.cover),
         borderRadius: BorderRadius.circular(10),
@@ -233,17 +226,17 @@ Widget buildBased(String imagePath) {
   );
 }
 
-Widget buildItem(Color menu, String imagePath, String text) {
+Widget buildItem(Color menu, String imagePath, String text, double height, double width, double fontSize) {
   return Padding(
     padding: EdgeInsets.symmetric(horizontal: 5),
     child: Container(
-      height: 60,
-      width: 175,
+      height: height,
+      width: width,
       child: Row(
         children: <Widget>[
           Container(
-            height: 60,
-            width: 60,
+            height: height,
+            width: height,
             decoration: BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage(imagePath), fit: BoxFit.cover)),
@@ -252,7 +245,7 @@ Widget buildItem(Color menu, String imagePath, String text) {
           Text(
             text,
             style: TextStyle(
-                fontSize: 10, fontWeight: FontWeight.w700, color: Colors.white),
+                fontSize: fontSize, fontWeight: FontWeight.w700, color: Colors.white),
           )
         ],
       ),
@@ -264,12 +257,13 @@ Widget buildItem(Color menu, String imagePath, String text) {
   );
 }
 
-Widget buildRow(Color menu, List<Map<String, String>> items) {
+Widget buildRow(Color menu, List<Map<String, String>> items, double imageHeight, double rowPadding, double textFontSize) {
   return Row(
+    mainAxisAlignment: MainAxisAlignment.start,
     children: items.map((item) {
       return Padding(
-        padding: EdgeInsets.symmetric(horizontal: 0),
-        child: buildItem(menu, item['imagePath']!, item['text']!),
+        padding: EdgeInsets.symmetric(horizontal: rowPadding),
+        child: buildItem(menu, item['imagePath']!, item['text']!, imageHeight * 0.4, imageHeight * 1.05, textFontSize),
       );
     }).toList(),
   );

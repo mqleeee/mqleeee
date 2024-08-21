@@ -40,10 +40,7 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
-      body: IndexedStack(
-        index: _selectedIndex,
-        children: _pages,
-      ), // Hiển thị trang tương ứng với tab được chọn
+      body: _pages[_selectedIndex],// Hiển thị trang tương ứng với tab được chọn
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
