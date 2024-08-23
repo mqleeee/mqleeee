@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project_musium/pages/Folders.dart';
 import 'package:project_musium/pages/MainScreen.dart';
-import 'package:project_musium/pages/Play_list1.dart'; // Import MainScreen
+import 'package:project_musium/pages/Play_list1.dart';
 
 class Folder extends StatefulWidget {
   const Folder({super.key});
@@ -17,7 +17,7 @@ class _FolderState extends State<Folder> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => MainScreen(initialIndex: index), // Truyền chỉ số điều hướng
+        builder: (context) => MainScreen(initialIndex: index),
       ),
     );
     setState(() {
@@ -27,31 +27,34 @@ class _FolderState extends State<Folder> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       extendBody: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: Icon(Icons.arrow_back, size: screenWidth * 0.06),
           onPressed: () {
-            Navigator.push(context,MaterialPageRoute(builder: (context)=> Folders())); // Go back to the previous screen
+            Navigator.push(context, MaterialPageRoute(builder: (context) => Folders()));
           },
           color: Colors.white,
         ),
         title: Text(
           'Moods',
           style: TextStyle(
-            fontSize: 20,
+            fontSize: screenWidth * 0.05,
             color: Colors.white,
-            fontWeight: FontWeight.w700
+            fontWeight: FontWeight.w700,
           ),
         ),
       ),
       body: Stack(
         children: [
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: EdgeInsets.all(screenWidth * 0.04),
             child: Column(
               children: [
                 Row(
@@ -60,7 +63,7 @@ class _FolderState extends State<Folder> {
                     Text(
                       'Sort By',
                       style: TextStyle(
-                        fontSize: 16,
+                        fontSize: screenWidth * 0.04,
                         color: Colors.white54,
                       ),
                     ),
@@ -69,33 +72,34 @@ class _FolderState extends State<Folder> {
                         Text(
                           'Recently played',
                           style: TextStyle(
-                            fontSize: 16,
+                            fontSize: screenWidth * 0.04,
                             color: Colors.cyan,
                           ),
                         ),
                         Icon(
                           Icons.import_export,
                           color: Colors.white54,
+                          size: screenWidth * 0.05,
                         ),
                       ],
                     )
                   ],
                 ),
-                SizedBox(height: 40), // Adjusted height
+                SizedBox(height: screenHeight * 0.05),
                 Expanded(
                   child: ListView(
                     children: [
-                      addNewPlaylist(),
+                      addNewPlaylist(screenWidth),
                       folderItem('current favorites', '20 songs',
-                          'assets/images/based2.png',context),
+                          'assets/images/based2.png', screenWidth, context),
                       folderItem('3:00am vibes', '18 songs',
-                          'assets/images/library2.png',context),
+                          'assets/images/library2.png', screenWidth, context),
                       folderItem('Lofi Loft', '63 songs',
-                          'assets/images/folderc1.png',context),
+                          'assets/images/folderc1.png', screenWidth, context),
                       folderItem('rain on my window', '32 songs',
-                          'assets/images/folderc4.png',context),
+                          'assets/images/folderc4.png', screenWidth, context),
                       folderItem('Anime OSTs', '20 songs',
-                          'assets/images/hinh3.png',context),
+                          'assets/images/hinh3.png', screenWidth, context),
                     ],
                   ),
                 ),
@@ -108,18 +112,18 @@ class _FolderState extends State<Folder> {
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.7), // Màu đen với độ mờ
-              spreadRadius: 10, // Phạm vi lan tỏa của bóng
-              blurRadius: 20,  // Độ mờ của bóng
-              offset: Offset(0, -3), // Vị trí đổ bóng (di chuyển lên trên)
+              color: Colors.black.withOpacity(0.7),
+              spreadRadius: 10,
+              blurRadius: 20,
+              offset: Offset(0, -3),
             ),
           ],
           gradient: LinearGradient(
             begin: Alignment.bottomCenter,
             end: Alignment.topCenter,
             colors: [
-              Colors.black.withOpacity(1), // Đen đậm phía dưới
-              Colors.black.withOpacity(0.0), // Trong suốt phía trên
+              Colors.black.withOpacity(1),
+              Colors.black.withOpacity(0.0),
             ],
           ),
         ),
@@ -142,7 +146,7 @@ class _FolderState extends State<Folder> {
           selectedItemColor: Color(0xFF06A0B5),
           unselectedItemColor: Colors.grey,
           onTap: _onBottomNavItemTapped,
-          backgroundColor: Colors.transparent, // Làm trong suốt BottomNavigationBar
+          backgroundColor: Colors.transparent,
           elevation: 0,
         ),
       ),
@@ -150,15 +154,15 @@ class _FolderState extends State<Folder> {
     );
   }
 }
-Widget addNewPlaylist() {
+
+Widget addNewPlaylist(double screenWidth) {
   return Padding(
-    padding: const EdgeInsets.symmetric(
-        vertical: 12.0), // Adjusted vertical padding
+    padding: EdgeInsets.symmetric(vertical: screenWidth * 0.03),
     child: Row(
       children: [
         Container(
-          height: 70, // Increased size
-          width: 70, // Increased size
+          height: screenWidth * 0.18,
+          width: screenWidth * 0.18,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             color: Colors.cyan,
@@ -166,14 +170,14 @@ Widget addNewPlaylist() {
           child: Icon(
             Icons.add,
             color: Colors.black,
-            size: 36, // Increased icon size
+            size: screenWidth * 0.09,
           ),
         ),
-        SizedBox(width: 20), // Increased width
+        SizedBox(width: screenWidth * 0.05),
         Text(
           'Add New Playlist',
           style: TextStyle(
-            fontSize: 20, // Increased font size
+            fontSize: screenWidth * 0.05,
             color: Colors.white,
           ),
         ),
@@ -182,7 +186,7 @@ Widget addNewPlaylist() {
   );
 }
 
-Widget folderItem(String title, String subtitle, String imagePath,BuildContext context) {
+Widget folderItem(String title, String subtitle, String imagePath, double screenWidth, BuildContext context) {
   return GestureDetector(
     onTap: () {
       Navigator.push(
@@ -193,38 +197,36 @@ Widget folderItem(String title, String subtitle, String imagePath,BuildContext c
       );
     },
     child: Padding(
-      padding: const EdgeInsets.symmetric(
-        vertical: 12.0,
-      ),
+      padding: EdgeInsets.symmetric(vertical: screenWidth * 0.03),
       child: Row(
         children: [
           Container(
-            height: 80,
-            width: 80,
+            height: screenWidth * 0.2,
+            width: screenWidth * 0.2,
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(imagePath),
                 fit: BoxFit.cover,
               ),
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(screenWidth * 0.03),
             ),
           ),
-          SizedBox(width: 20),
+          SizedBox(width: screenWidth * 0.05),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 title,
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: screenWidth * 0.05,
                   color: Colors.white,
                 ),
               ),
-              SizedBox(height: 6),
+              SizedBox(height: screenWidth * 0.015),
               Text(
                 subtitle,
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: screenWidth * 0.04,
                   color: Colors.white54,
                 ),
               ),
@@ -234,6 +236,7 @@ Widget folderItem(String title, String subtitle, String imagePath,BuildContext c
           Icon(
             Icons.more_vert,
             color: Colors.white54,
+            size: screenWidth * 0.06,
           ),
         ],
       ),

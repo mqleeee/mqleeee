@@ -3,7 +3,6 @@ import 'package:project_musium/pages/Folder.dart';
 import 'package:project_musium/pages/MainScreen.dart';
 import 'package:project_musium/pages/Song.dart';
 
-
 class PlaylistScreen extends StatefulWidget {
   const PlaylistScreen({super.key});
 
@@ -28,6 +27,9 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       extendBody: true,
       backgroundColor: Color(0xFF121111),
@@ -37,14 +39,15 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context)=> Folder())); // Return to previous screen
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => Folder())); // Return to previous screen
           },
           color: Colors.white,
         ),
         title: Text(
           'FROM "PLAYLISTS"',
           style: TextStyle(
-            fontSize: 14,
+            fontSize: screenWidth * 0.035, // Responsive font size
             color: Color(0xFFFFFFFF),
           ),
         ),
@@ -62,56 +65,50 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
       body: Stack(
         children: [
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: EdgeInsets.all(screenWidth * 0.04), // Responsive padding
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
-                  height: 180,
-                  width: 180,
+                  height: screenHeight * 0.25, // Responsive height
+                  width: screenHeight * 0.25, // Responsive width
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage('assets/images/folderc1.png'), // Your image asset
                       fit: BoxFit.cover,
                     ),
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(screenWidth * 0.02), // Responsive border radius
                   ),
                 ),
-                SizedBox(height: 16),
+                SizedBox(height: screenHeight * 0.02), // Responsive spacing
                 Text(
                   'Lofi Loft',
                   style: TextStyle(
-                    fontSize: 28,
+                    fontSize: screenWidth * 0.07, // Responsive font size
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                   ),
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(height: 4),
+                SizedBox(height: screenHeight * 0.01), // Responsive spacing
                 Text(
                   'soft, chill, dreamy, lo-fi beats',
                   style: TextStyle(
-                    fontSize: 14,
+                    fontSize: screenWidth * 0.035, // Responsive font size
                     color: Colors.white54,
                   ),
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(height: 20),
+                SizedBox(height: screenHeight * 0.03), // Responsive spacing
                 Expanded(
                   child: ListView(
                     children: [
-                      playlistItem(context, 'grainy days', 'moody.',
-                          'assets/images/playlistsc1.png'),
-                      playlistItem(context, 'Coffee', 'Kainbeats',
-                          'assets/images/playlistsc2.png'),
-                      playlistItem(context, 'raindrops', 'rainyxxx',
-                          'assets/images/playlistsc3.png'),
-                      playlistItem(context, 'Tokyo', 'SmYang',
-                          'assets/images/playlistsc4.png'),
-                      playlistItem(context, 'Lullaby', 'iamfinenow',
-                          'assets/images/playlistsc5.png'),
-                      playlistItem(context, 'Hazel Eyes', 'moody.',
-                          'assets/images/playlistsc6.png'),
+                      playlistItem(context, 'grainy days', 'moody.', 'assets/images/playlistsc1.png'),
+                      playlistItem(context, 'Coffee', 'Kainbeats', 'assets/images/playlistsc2.png'),
+                      playlistItem(context, 'raindrops', 'rainyxxx', 'assets/images/playlistsc3.png'),
+                      playlistItem(context, 'Tokyo', 'SmYang', 'assets/images/playlistsc4.png'),
+                      playlistItem(context, 'Lullaby', 'iamfinenow', 'assets/images/playlistsc5.png'),
+                      playlistItem(context, 'Hazel Eyes', 'moody.', 'assets/images/playlistsc6.png'),
                     ],
                   ),
                 ),
@@ -123,19 +120,19 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.7), // Màu đen với độ mờ
-            spreadRadius: 10, // Phạm vi lan tỏa của bóng
-            blurRadius: 20,  // Độ mờ của bóng
-            offset: Offset(0, -3), // Vị trí đổ bóng (di chuyển lên trên)
-          ),
+            BoxShadow(
+              color: Colors.black.withOpacity(0.7), // Shadow color
+              spreadRadius: 10, // Shadow spread radius
+              blurRadius: 20, // Shadow blur radius
+              offset: Offset(0, -3), // Shadow offset
+            ),
           ],
           gradient: LinearGradient(
             begin: Alignment.bottomCenter,
             end: Alignment.topCenter,
             colors: [
-              Colors.black.withOpacity(1), // Đen đậm phía dưới
-              Colors.black.withOpacity(0.0), // Trong suốt phía trên
+              Colors.black.withOpacity(1), // Solid black at the bottom
+              Colors.black.withOpacity(0.0), // Transparent at the top
             ],
           ),
         ),
@@ -158,45 +155,48 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
           selectedItemColor: Color(0xFF06A0B5),
           unselectedItemColor: Colors.grey,
           onTap: _onBottomNavItemTapped,
-          backgroundColor: Colors.transparent, // Làm trong suốt BottomNavigationBar
+          backgroundColor: Colors.transparent, // Transparent background
           elevation: 0,
         ),
       ),
     );
   }
-  Widget playlistItem(
-      BuildContext context, String title, String artist, String imagePath) {
+
+  Widget playlistItem(BuildContext context, String title, String artist, String imagePath) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      padding: EdgeInsets.symmetric(vertical: screenHeight * 0.01), // Responsive vertical padding
       child: Row(
         children: [
           Container(
-            height: 60,
-            width: 60,
+            height: screenHeight * 0.08, // Responsive height
+            width: screenHeight * 0.08, // Responsive width
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(imagePath),
                 fit: BoxFit.cover,
               ),
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(screenWidth * 0.02), // Responsive border radius
             ),
           ),
-          SizedBox(width: 16),
+          SizedBox(width: screenWidth * 0.04), // Responsive horizontal spacing
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 title,
                 style: TextStyle(
-                  fontSize: 18,
+                  fontSize: screenWidth * 0.045, // Responsive font size
                   color: Colors.white,
                 ),
               ),
-              SizedBox(height: 4),
+              SizedBox(height: screenHeight * 0.005), // Responsive spacing
               Text(
                 artist,
                 style: TextStyle(
-                  fontSize: 14,
+                  fontSize: screenWidth * 0.035, // Responsive font size
                   color: Colors.white54,
                 ),
               ),
@@ -206,7 +206,8 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
           IconButton(
             icon: Icon(Icons.more_vert, color: Colors.white),
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context)=> SongScreen()));
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => SongScreen()));
             },
           )
         ],

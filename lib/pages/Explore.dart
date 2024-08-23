@@ -75,6 +75,11 @@ class _ExploreState extends State<Explore> {
         'color': Color(0xFF479775)
       },
     ];
+
+    // Lấy kích thước màn hình
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final double screenHeight = MediaQuery.of(context).size.height;
+
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -89,7 +94,7 @@ class _ExploreState extends State<Explore> {
         backgroundColor: Colors.transparent,
         body: SafeArea(
           child: Padding(
-            padding: EdgeInsets.all(16.0),
+            padding: EdgeInsets.all(screenWidth * 0.04), // Padding theo tỉ lệ màn hình
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -100,22 +105,23 @@ class _ExploreState extends State<Explore> {
                     children: <Widget>[
                       Image(
                         image: AssetImage('assets/images/logo1.png'),
-                        width: 60,
-                        height: 60,
+                        width: screenWidth * 0.15, // Tỉ lệ hình ảnh
+                        height: screenWidth * 0.15,
                       ),
+                      SizedBox(width: screenWidth * 0.03),
                       Text(
-                        'Sreach',
+                        'Search',
                         style: TextStyle(
                             color: third,
-                            fontSize: 27,
+                            fontSize: screenWidth * 0.07, // Tỉ lệ font chữ
                             fontWeight: FontWeight.w700),
                       ),
                     ],
                   ),
                   Container(
-                    height: 50,
+                    height: screenHeight * 0.06, // Tỉ lệ chiều cao cho TextField
                     margin: EdgeInsets.symmetric(
-                        vertical: 10.0), // Thêm khoảng cách trên/dưới
+                        vertical: screenHeight * 0.02), // Tỉ lệ margin trên/dưới
                     child: TextField(
                       decoration: InputDecoration(
                         filled: true,
@@ -132,18 +138,18 @@ class _ExploreState extends State<Explore> {
                           borderSide: BorderSide.none, // Loại bỏ đường viền
                         ),
                         contentPadding: EdgeInsets.symmetric(
-                            horizontal: 20,
-                            vertical: 15), // Thêm khoảng cách nội dung
+                            horizontal: screenWidth * 0.05,
+                            vertical: screenHeight * 0.02), // Thêm khoảng cách nội dung
                       ),
                     ),
                   ),
-                  SizedBox(height: 10),
+                  SizedBox(height: screenHeight * 0.02),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 12),
+                    padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.03),
                     child: Text(
                       'Your Top Genres',
                       style: TextStyle(
-                        fontSize: 22,
+                        fontSize: screenWidth * 0.06, // Tỉ lệ font chữ
                         fontWeight: FontWeight.w700,
                         color: Colors.white,
                       ),
@@ -151,19 +157,19 @@ class _ExploreState extends State<Explore> {
                   ),
                   Column(
                     children: <Widget>[
-                      SizedBox(height: 15),
-                      buildRow(items1),
-                      SizedBox(height: 10),
-                      buildRow(items2)
+                      SizedBox(height: screenHeight * 0.02),
+                      buildRow(items1, screenWidth),
+                      SizedBox(height: screenHeight * 0.01),
+                      buildRow(items2, screenWidth)
                     ],
                   ),
-                  SizedBox(height: 40),
+                  SizedBox(height: screenHeight * 0.05),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 12),
+                    padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.03),
                     child: Text(
                       'Browse All',
                       style: TextStyle(
-                        fontSize: 22,
+                        fontSize: screenWidth * 0.06,
                         fontWeight: FontWeight.w700,
                         color: Colors.white,
                       ),
@@ -171,12 +177,12 @@ class _ExploreState extends State<Explore> {
                   ),
                   Column(
                     children: <Widget>[
-                      SizedBox(height: 15),
-                      buildRow(items3),
-                      SizedBox(height: 10),
-                      buildRow(items4),
-                      SizedBox(height: 10),
-                      buildRow(items5)
+                      SizedBox(height: screenHeight * 0.02),
+                      buildRow(items3, screenWidth),
+                      SizedBox(height: screenHeight * 0.01),
+                      buildRow(items4, screenWidth),
+                      SizedBox(height: screenHeight * 0.01),
+                      buildRow(items5, screenWidth)
                     ],
                   ),
                 ],
@@ -189,57 +195,61 @@ class _ExploreState extends State<Explore> {
   }
 }
 
-Widget buildItem(Color menu, String imagePath, String text, Color color) {
+Widget buildItem(Color menu, String imagePath, String text, Color color, double screenWidth) {
   return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 5),
+      padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.01),
       child: Container(
-        height: 110,
-        width: 165,
+        height: screenWidth * 0.28,
+        width: screenWidth * 0.4,
         child: Stack(
           children: <Widget>[
             Positioned(
-                top: 15,
-                left: 12,
+                top: screenWidth * 0.04,
+                left: screenWidth * 0.03,
                 child: Container(
-                  width: 90,
-                  height: 50,
+                  width: screenWidth * 0.25,
+                  height: screenWidth * 0.13,
                   child: Text(
                     text,
                     style: TextStyle(
                         color: Colors.white,
-                        fontSize: 17,
+                        fontSize: screenWidth * 0.045,
                         letterSpacing: 1,
                         fontWeight: FontWeight.w700),
                   ),
-                )),
+                )
+            ),
             Positioned(
-              bottom: -10,
-              right: -10,
+              bottom: -screenWidth * 0.02,
+              right: -screenWidth * 0.02,
               child: Center(
-                  child: Transform.rotate(
-                angle: 30 * 3.1415927 / 180,
-                child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
+                child: Transform.rotate(
+                  angle: 30 * 3.1415927 / 180,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(screenWidth * 0.02),
                     child: Image.asset(imagePath,
-                        height: 90, width: 90, fit: BoxFit.cover)),
-              )),
+                        height: screenWidth * 0.25, width: screenWidth * 0.25, fit: BoxFit.cover),
+                  ),
+                ),
+              ),
             )
           ],
         ),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5),
+          borderRadius: BorderRadius.circular(screenWidth * 0.015),
           color: color, // Sử dụng màu sắc từ items
         ),
-      ));
+      )
+  );
 }
 
-Widget buildRow(List<Map<String, dynamic>> items) {
+Widget buildRow(List<Map<String, dynamic>> items, double screenWidth) {
   return Row(
     children: items.map((item) {
       return Padding(
-        padding: EdgeInsets.symmetric(horizontal: 5),
+        padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.01),
         child: buildItem(
-            item['color']!, item['imagePath']!, item['text']!, item['color']!),
+            item['color']!, item['imagePath']!, item['text']!, item['color']!, screenWidth),
       );
     }).toList(),
   );

@@ -25,6 +25,7 @@ class _StatsState extends State<Stats> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       extendBody: true,
       backgroundColor: Color(0xFF121111),
@@ -41,8 +42,22 @@ class _StatsState extends State<Stats> {
         ),
         title: Column(
           children: <Widget>[
-            Text('Top', style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.w700)),
-            Text('Past 30 Days', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 10, color: Colors.grey))
+            Text(
+              'Top',
+              style: TextStyle(
+                fontSize: screenWidth * 0.05, // Adjusted for screen width
+                color: Colors.white,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+            Text(
+              'Past 30 Days',
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: screenWidth * 0.025, // Adjusted for screen width
+                color: Colors.grey,
+              ),
+            )
           ],
         ),
         actions: <Widget>[
@@ -63,20 +78,44 @@ class _StatsState extends State<Stats> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                buildTextButton(0, 'Tracks'),
-                SizedBox(width: 20),
-                buildTextButton(1, 'Artists'),
-                SizedBox(width: 20),
-                buildTextButton(2, 'Albums'),
+                buildTextButton(0, 'Tracks', screenWidth),
+                SizedBox(width: screenWidth * 0.05), // Adjusted for screen width
+                buildTextButton(1, 'Artists', screenWidth),
+                SizedBox(width: screenWidth * 0.05), // Adjusted for screen width
+                buildTextButton(2, 'Albums', screenWidth),
               ],
             ),
             Expanded(
               child: TabBarView(
                 children: [
-                  buildTracksList(), // Content for the 'Tracks' tab
-                  Center(child: Text('Artists Content', style: TextStyle(color: Colors.white))),
-                  Center(child: Text('Albums Content', style: TextStyle(color: Colors.white))),
-                  Center(child: Text('Other Content', style: TextStyle(color: Colors.white))),
+                  buildTracksList(screenWidth), // Content for the 'Tracks' tab
+                  Center(
+                    child: Text(
+                      'Artists Content',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: screenWidth * 0.04, // Adjusted for screen width
+                      ),
+                    ),
+                  ),
+                  Center(
+                    child: Text(
+                      'Albums Content',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: screenWidth * 0.04, // Adjusted for screen width
+                      ),
+                    ),
+                  ),
+                  Center(
+                    child: Text(
+                      'Other Content',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: screenWidth * 0.04, // Adjusted for screen width
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -99,7 +138,7 @@ class _StatsState extends State<Stats> {
     );
   }
 
-  Widget buildTextButton(int index, String label) {
+  Widget buildTextButton(int index, String label, double screenWidth) {
     bool isSelected = selectedIndex == index;
     return Column(
       children: [
@@ -114,28 +153,29 @@ class _StatsState extends State<Stats> {
             style: TextStyle(
               color: isSelected ? Color(0xFF39C0D4) : Colors.white,
               fontWeight: FontWeight.w700,
-              fontSize: 16,
+              fontSize: screenWidth * 0.04, // Adjusted for screen width
               shadows: [
-                Shadow(
-                  color: Color(0xFF39C0D4), // Màu bóng
-                  offset: Offset(0,0), // Độ dịch chuyển của bóng
-                  blurRadius: 9, // Độ mờ của bóng
-                ),
+                if (isSelected)
+                  Shadow(
+                    color: Color(0xFF39C0D4), // Shadow color
+                    offset: Offset(0, 0), // Shadow offset
+                    blurRadius: 9, // Shadow blur radius
+                  ),
               ],
             ),
           ),
         ),
         Container(
-          height: 2,
-          width: 100,
+          height: screenWidth * 0.005, // Adjusted for screen width
+          width: screenWidth * 0.25, // Adjusted for screen width
           decoration: BoxDecoration(
             color: isSelected ? Color(0xFF39C0D4) : Colors.transparent,
             boxShadow: isSelected
                 ? [
               BoxShadow(
-                color: Color(0xFF39C0D4), // Màu bóng
-                offset: Offset(0, 0), // Độ dịch chuyển của bóng
-                blurRadius: 9, // Độ mờ của bóng
+                color: Color(0xFF39C0D4), // Shadow color
+                offset: Offset(0, 0), // Shadow offset
+                blurRadius: 9, // Shadow blur radius
               ),
             ]
                 : [],
@@ -145,51 +185,66 @@ class _StatsState extends State<Stats> {
     );
   }
 
-  Widget buildTracksList() {
+  Widget buildTracksList(double screenWidth) {
     return ListView.builder(
       itemCount: tracks.length,
       itemBuilder: (context, index) {
         final track = tracks[index];
         return Container(
-          margin: EdgeInsets.only(top: 16,left: 18,right: 18),
-          padding: EdgeInsets.all(16),
+          margin: EdgeInsets.symmetric(
+            vertical: screenWidth * 0.01, // Adjusted for screen height
+            horizontal: screenWidth * 0.05, // Adjusted for screen width
+          ),
+          padding: EdgeInsets.all(screenWidth * 0.04), // Adjusted for screen width
           decoration: BoxDecoration(
             color: Color(0xFF1E1E1E),
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(screenWidth * 0.02), // Adjusted for screen width
           ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10),
+                padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.02), // Adjusted for screen width
                 child: Text(
                   track['rank']!,
-                  style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.w700),
+                  style: TextStyle(
+                    fontSize: screenWidth * 0.05, // Adjusted for screen width
+                    color: Colors.white,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
               ),
-              SizedBox(width: 25),
+              SizedBox(width: screenWidth * 0.05), // Adjusted for screen width
               Container(
-                height: 60,
-                width: 60,
+                height: screenWidth * 0.15, // Adjusted for screen width
+                width: screenWidth * 0.15, // Adjusted for screen width
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage(track['image']!),
                     fit: BoxFit.cover,
                   ),
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(screenWidth * 0.02), // Adjusted for screen width
                 ),
               ),
-              SizedBox(width: 50),
+              SizedBox(width: screenWidth * 0.1), // Adjusted for screen width
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
                     track['title']!,
-                    style: TextStyle(fontWeight: FontWeight.w700, fontSize: 17, color: Colors.white),
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: screenWidth * 0.04, // Adjusted for screen width
+                      color: Colors.white,
+                    ),
                   ),
                   Text(
                     track['artist']!,
-                    style: TextStyle(fontWeight: FontWeight.w700, fontSize: 14, color: Colors.grey),
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: screenWidth * 0.03, // Adjusted for screen width
+                      color: Colors.grey,
+                    ),
                   ),
                 ],
               )
