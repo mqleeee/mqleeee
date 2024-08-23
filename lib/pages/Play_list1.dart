@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project_musium/pages/Folder.dart';
 import 'package:project_musium/pages/MainScreen.dart';
+import 'package:project_musium/pages/Queue.dart';
 import 'package:project_musium/pages/Song.dart';
 
 class PlaylistScreen extends StatefulWidget {
@@ -56,7 +57,7 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
           IconButton(
             icon: Icon(Icons.more_vert),
             onPressed: () {
-              // More actions
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>QueueScreen()));
             },
             color: Colors.white,
           ),
@@ -70,8 +71,8 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
-                  height: screenHeight * 0.25, // Responsive height
-                  width: screenHeight * 0.25, // Responsive width
+                  height: screenHeight * 0.3, // Responsive height
+                  width: screenHeight * 0.3, // Responsive width
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage('assets/images/folderc1.png'), // Your image asset

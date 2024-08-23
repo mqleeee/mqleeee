@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:project_musium/pages/CreateNew.dart';
 import 'package:project_musium/pages/Play_list1.dart';
 import 'package:project_musium/pages/Song.dart';
-
 
 class AddToPlaylistScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       backgroundColor: Color(0xFF121111),
       appBar: AppBar(
@@ -23,16 +26,16 @@ class AddToPlaylistScreen extends StatelessWidget {
         title: Text(
           'Add to Playlist',
           style: TextStyle(
-            fontSize: 20,
-            color: Colors.white,
-            fontWeight: FontWeight.w700
+              fontSize: 20,
+              color: Colors.white,
+              fontWeight: FontWeight.w700
           ),
         ),
         centerTitle: true,
       ),
       body: SafeArea(
-        child:  Padding(
-          padding: const EdgeInsets.all(30.0),
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.08,vertical: screenWidth * 0.06), // Padding theo tỷ lệ màn hình
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -41,63 +44,64 @@ class AddToPlaylistScreen extends StatelessWidget {
                   decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(
-                        color: Color(0xFF06A0B5).withOpacity(0.4), // Màu của đổ bóng
-                        spreadRadius: 2, // Bán kính lan của đổ bóng
-                        blurRadius: 20, // Độ mờ của đổ bóng
-                        offset: Offset(0, 0), // Độ dịch chuyển của đổ bóng
+                        color: Color(0xFF06A0B5).withOpacity(0.4),
+                        spreadRadius: 2,
+                        blurRadius: 20,
+                        offset: Offset(0, 0),
                       ),
                     ],
-                    borderRadius: BorderRadius.circular(30.0), // Bo góc cho bóng
+                    borderRadius: BorderRadius.circular(screenWidth * 0.08), // Bo góc theo tỷ lệ màn hình
                   ),
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color(0xFF06A0B5),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30.0),
+                        borderRadius: BorderRadius.circular(screenWidth * 0.08),
                       ),
                       padding: EdgeInsets.symmetric(
-                        vertical: 16.0,
-                        horizontal: 32.0,
+                        vertical: screenHeight * 0.02,
+                        horizontal: screenWidth * 0.1,
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=> CreateNew()));
+                    },
                     child: Text(
                       'New Playlist',
                       style: TextStyle(
-                        fontSize: 18,
+                        fontSize: screenWidth * 0.05,
                         color: Colors.white,
                       ),
                     ),
                   ),
                 ),
               ),
-              SizedBox(height: 40),
+              SizedBox(height: screenHeight * 0.05),
               Container(
-                height: 50,
-                margin: EdgeInsets.symmetric(
-                    vertical: 10.0), // Thêm khoảng cách trên/dưới
+                height: screenHeight * 0.06,
+                margin: EdgeInsets.symmetric(vertical: screenHeight * 0.02),
                 child: TextField(
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: Colors.white,
                     hintText: 'Find Playlist',
                     hintStyle: TextStyle(
-                        color: Colors.grey), // Màu của văn bản gợi ý
+                        color: Colors.grey),
                     prefixIcon: Icon(
                       Icons.search,
-                      color: Colors.grey, // Màu của biểu tượng tìm kiếm
+                      color: Colors.grey,
                     ),
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      borderSide: BorderSide.none, // Loại bỏ đường viền
+                      borderRadius: BorderRadius.circular(screenWidth * 0.05),
+                      borderSide: BorderSide.none,
                     ),
                     contentPadding: EdgeInsets.symmetric(
-                        horizontal: 20,
-                        vertical: 15), // Thêm khoảng cách nội dung
+                        horizontal: screenWidth * 0.05,
+                        vertical: screenHeight * 0.015),
                   ),
                 ),
               ),
-              SizedBox(height: 40),
+              SizedBox(height: screenHeight * 0.05),
               Expanded(
                 child: ListView(
                   children: [
@@ -107,20 +111,30 @@ class AddToPlaylistScreen extends StatelessWidget {
                       '20 songs',
                       'assets/images/based2.png',
                       onTap: () {
-                        // Handle item tap if needed
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => PlaylistScreen(),
+                          ),
+                        );
                       },
                     ),
-                    SizedBox(height: 16),
+                    SizedBox(height: screenHeight * 0.02),
                     playlistItem(
                       context,
                       '3:00am vibes',
                       '18 songs',
                       'assets/images/library2.png',
                       onTap: () {
-                        // Handle item tap if needed
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => PlaylistScreen(),
+                          ),
+                        );
                       },
                     ),
-                    SizedBox(height: 16),
+                    SizedBox(height: screenHeight * 0.02),
                     playlistItem(
                       context,
                       'Lofi Loft',
@@ -135,34 +149,49 @@ class AddToPlaylistScreen extends StatelessWidget {
                         );
                       },
                     ),
-                    SizedBox(height: 16),
+                    SizedBox(height: screenHeight * 0.02),
                     playlistItem(
                       context,
                       'rain on my window',
                       '32 songs',
                       'assets/images/folderc4.png',
                       onTap: () {
-                        // Handle item tap if needed
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => PlaylistScreen(),
+                          ),
+                        );
                       },
                     ),
-                    SizedBox(height: 16),
+                    SizedBox(height: screenHeight * 0.02),
                     playlistItem(
                       context,
                       'Anime OSTs',
                       '20 songs',
                       'assets/images/hinh3.png',
                       onTap: () {
-                        // Handle item tap if needed
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => PlaylistScreen(),
+                          ),
+                        );
                       },
                     ),
-                    SizedBox(height: 16),
+                    SizedBox(height: screenHeight * 0.02),
                     playlistItem(
                       context,
                       '3:00am vibes',
                       '21 songs',
                       'assets/images/library2.png',
                       onTap: () {
-                        // Handle item tap if needed
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => PlaylistScreen(),
+                          ),
+                        );
                       },
                     ),
                   ],
@@ -171,7 +200,7 @@ class AddToPlaylistScreen extends StatelessWidget {
             ],
           ),
         ),
-      )
+      ),
     );
   }
 
@@ -181,43 +210,41 @@ class AddToPlaylistScreen extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height * 0.01),
         child: Row(
           children: [
             Container(
-              height: 60,
-              width: 60,
+              height: MediaQuery.of(context).size.height * 0.08,
+              width: MediaQuery.of(context).size.height * 0.08,
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage(imagePath),
                   fit: BoxFit.cover,
                 ),
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(MediaQuery.of(context).size.height * 0.02),
               ),
             ),
-            SizedBox(width: 16),
+            SizedBox(width: MediaQuery.of(context).size.width * 0.03),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   title,
                   style: TextStyle(
-                    fontSize: 18,
+                    fontSize: MediaQuery.of(context).size.width * 0.05,
                     color: Colors.white,
                   ),
                 ),
-                SizedBox(height: 4),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                 Text(
                   subtitle,
                   style: TextStyle(
-                    fontSize: 14,
+                    fontSize: MediaQuery.of(context).size.width * 0.04,
                     color: Colors.white54,
                   ),
                 ),
               ],
             ),
-            Spacer(),
-            Icon(Icons.more_vert, color: Colors.white),
           ],
         ),
       ),

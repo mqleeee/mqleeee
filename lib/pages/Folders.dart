@@ -52,7 +52,7 @@ class _FoldersState extends State<Folders> {
     });
   }
 
-  int _selectedIndex = 0;
+  int _selectedIndex = 2;
 
   void _onBottomNavItemTapped(int index) {
     Navigator.push(

@@ -91,7 +91,7 @@ class _StatsState extends State<Stats> {
                   buildTracksList(screenWidth), // Content for the 'Tracks' tab
                   Center(
                     child: Text(
-                      'Artists Content',
+                      '6 months',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: screenWidth * 0.04, // Adjusted for screen width
@@ -100,7 +100,7 @@ class _StatsState extends State<Stats> {
                   ),
                   Center(
                     child: Text(
-                      'Albums Content',
+                      '1 Year',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: screenWidth * 0.04, // Adjusted for screen width
@@ -109,7 +109,7 @@ class _StatsState extends State<Stats> {
                   ),
                   Center(
                     child: Text(
-                      'Other Content',
+                      'LifeTime',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: screenWidth * 0.04, // Adjusted for screen width
@@ -120,10 +120,11 @@ class _StatsState extends State<Stats> {
               ),
             ),
             Container(
-              color: Colors.transparent,
+              color: Color(0xFF121111),
               child: TabBar(
                 labelColor: Color(0xFF39C0D4),
                 unselectedLabelColor: Colors.white,
+                indicatorColor: Colors.transparent,
                 tabs: [
                   Tab(text: '30 days'),
                   Tab(text: '6 months'),
@@ -192,7 +193,7 @@ class _StatsState extends State<Stats> {
         final track = tracks[index];
         return Container(
           margin: EdgeInsets.symmetric(
-            vertical: screenWidth * 0.01, // Adjusted for screen height
+            vertical: MediaQuery.of(context).size.height * 0.01, // Adjusted for screen height
             horizontal: screenWidth * 0.05, // Adjusted for screen width
           ),
           padding: EdgeInsets.all(screenWidth * 0.04), // Adjusted for screen width
