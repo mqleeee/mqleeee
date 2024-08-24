@@ -263,7 +263,7 @@ Widget buildRow(Color menu, List<Map<String, String>> items, double imageHeight,
     children: items.map((item) {
       return Padding(
         padding: EdgeInsets.symmetric(horizontal: rowPadding),
-        child: buildItem(menu, item['imagePath']!, item['text']!, imageHeight * 0.4, imageHeight * 1.05, textFontSize),
+        child: buildItem(menu, item['imagePath']!, item['text']!, imageHeight * 0.4, imageHeight * 1, textFontSize),
       );
     }).toList(),
   );
