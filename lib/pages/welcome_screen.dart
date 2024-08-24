@@ -15,10 +15,26 @@ class WelcomeScreen extends StatelessWidget {
     // Dynamic dimensions based on screen size
     final double containerHeight = screenSize.height * 0.35; // 35% of screen height
     final double buttonWidth = screenSize.width * 0.7; // 70% of screen width
-    final double buttonheight = screenSize.width * 0.09;
+    final double buttonHeight = screenSize.width * 0.09;
     final double iconSize = screenSize.width * 0.1; // 10% of screen width for icons
-    final double topPadding = screenSize.height * 0.01; // 2% chiều cao màn hình
-    final double horizontalPadding = screenSize.width * 0.17; // 15% chiều rộng màn hình
+    final double topPadding = screenSize.height * 0.02; // 2% chiều cao màn hình
+    final double horizontalPadding = screenSize.width * 0.15; // 15% chiều rộng màn hình
+
+    // Dynamic positioning and sizing for CircleAvatars
+    final double avatarRadiusLarge = screenSize.width * 0.15;
+    final double avatarRadiusMedium = screenSize.width * 0.08;
+    final double avatarRadiusSmall = screenSize.width * 0.11;
+
+    final double avatarHeightLarge = screenSize.height * 0.12;
+    final double avatarHeightMedium = screenSize.height * 0.06;
+    final double avatarHeightSmall = screenSize.height * 0.07;
+
+    final double avatarTopLarge = screenSize.height * 0.06;
+    final double avatarLeftLarge = screenSize.width * 0.13;
+    final double avatarTopMedium = screenSize.height * 0.1;
+    final double avatarRightMedium = screenSize.width * 0.15;
+    final double avatarTopSmall = screenSize.height * 0.3;
+    final double avatarRightSmall = screenSize.width * 0.1;
 
     return Scaffold(
       body: SafeArea(
@@ -102,7 +118,7 @@ class WelcomeScreen extends StatelessWidget {
                               ),
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: mycolor,
-                                minimumSize: Size(buttonWidth, buttonheight),
+                                minimumSize: Size(buttonWidth, buttonHeight),
                                 padding: EdgeInsets.symmetric(horizontal: 30),
                               ),
                             ),
@@ -113,7 +129,81 @@ class WelcomeScreen extends StatelessWidget {
                   ),
                 ),
               ),
-
+              Positioned(
+                top: avatarTopLarge,
+                left: avatarLeftLarge,
+                child: ClipOval(
+                  child: CircleAvatar(
+                    radius: avatarRadiusLarge,
+                    backgroundColor: Colors.cyan.shade300,
+                    child: Container(
+                      height: avatarHeightLarge,
+                      width: avatarHeightLarge,
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            offset: Offset(4, -8),
+                            color: Colors.black.withOpacity(0.25),
+                            blurRadius: 19,
+                            spreadRadius: 8,
+                          ),
+                        ],
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Positioned(
+                top: avatarTopMedium,
+                right: avatarRightMedium,
+                child: ClipOval(
+                  child: CircleAvatar(
+                    radius: avatarRadiusMedium,
+                    backgroundColor: Colors.cyan.shade300,
+                    child: Container(
+                      height: avatarHeightMedium,
+                      width: avatarHeightMedium,
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            offset: Offset(4, -8),
+                            color: Colors.black.withOpacity(0.25),
+                            blurRadius: 19,
+                            spreadRadius: 8,
+                          ),
+                        ],
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Positioned(
+                top: avatarTopSmall,
+                right: avatarRightSmall,
+                child: ClipOval(
+                  child: CircleAvatar(
+                    radius: avatarRadiusSmall,
+                    backgroundColor: Colors.cyan.shade300,
+                    child: Container(
+                      height: avatarHeightSmall,
+                      width: avatarHeightSmall,
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            offset: Offset(4, -8),
+                            color: Colors.black.withOpacity(0.25),
+                            blurRadius: 19,
+                            spreadRadius: 8,
+                          ),
+                        ],
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
